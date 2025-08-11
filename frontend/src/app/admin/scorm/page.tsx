@@ -69,12 +69,12 @@ export default function ScormPage() {
     courseId: '',
     status: 'active' as 'active' | 'inactive' | 'processing',
     metadata: {
-      duration: '',
-      typicalLearningTime: '',
-      interactivityType: '',
-      difficulty: '',
-      language: '',
-      tags: [] as string[]
+      duration: '' as string | undefined,
+      typicalLearningTime: '' as string | undefined,
+      interactivityType: '' as string | undefined,
+      difficulty: '' as string | undefined,
+      language: '' as string | undefined,
+      tags: [] as string[] | undefined
     }
   });
 
@@ -163,7 +163,14 @@ export default function ScormPage() {
       description: pkg.description,
       courseId: pkg.courseId || '',
       status: pkg.status,
-      metadata: { ...pkg.metadata }
+      metadata: {
+        duration: pkg.metadata.duration || '',
+        typicalLearningTime: pkg.metadata.typicalLearningTime || '',
+        interactivityType: pkg.metadata.interactivityType || '',
+        difficulty: pkg.metadata.difficulty || '',
+        language: pkg.metadata.language || '',
+        tags: pkg.metadata.tags || []
+      }
     });
     setShowEditModal(true);
   };
