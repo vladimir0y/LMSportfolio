@@ -2,20 +2,20 @@
 
 ## Overview
 
-Successfully upgraded the entire project from Node.js 18.17.0 to Node.js 22.0.0.
+Successfully upgraded the entire project from Node.js 18.17.0 to Node.js 22.18.0.
 
 ## Files Updated
 
 ### Frontend
-- **`frontend/package.json`** - Updated engines field to `"node": "22.0.0"`
-- **`frontend/.nvmrc`** - Updated to `22.0.0`
+- **`frontend/package.json`** - Updated engines field to `"node": ">=22.0.0 <23.0.0"`
+- **`frontend/.nvmrc`** - Updated to `22.18.0`
 
 ### Backend
-- **`backend/package.json`** - Added engines field with `"node": "22.0.0"`
-- **`backend/.nvmrc`** - Created with `22.0.0`
+- **`backend/package.json`** - Added engines field with `"node": ">=22.0.0 <23.0.0"`
+- **`backend/.nvmrc`** - Created with `22.18.0`
 
 ### Documentation
-- **`README.md`** - Updated prerequisites to Node.js 22.0.0+
+- **`README.md`** - Updated prerequisites to Node.js 22.18.0+
 - **`DEPLOYMENT_FIXES.md`** - Updated all Node.js version references
 - **`deploy.sh`** - Added Node.js version check
 
@@ -72,12 +72,12 @@ All current dependencies are compatible with Node.js 22:
 
 ```bash
 # Using nvm (Node Version Manager)
-nvm install 22.0.0
-nvm use 22.0.0
-nvm alias default 22.0.0
+nvm install 22.18.0
+nvm use 22.18.0
+nvm alias default 22.18.0
 
 # Verify installation
-node --version  # Should show v22.0.0
+node --version  # Should show v22.18.0
 npm --version   # Should show compatible npm version
 ```
 

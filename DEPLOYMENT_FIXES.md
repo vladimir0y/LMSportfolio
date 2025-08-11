@@ -14,7 +14,7 @@
 
 ### 3. Node.js Version Warning
 - **Problem**: Vercel warning about automatic Node.js version upgrades
-- **Solution**: Changed from `"node": ">=18.17"` to `"node": "22.0.0"` for exact version control
+- **Solution**: Changed from `"node": ">=18.17"` to `"node": ">=22.0.0 <23.0.0"` for version range control
 - **Files Modified**: `frontend/package.json`
 
 ### 4. SWC Dependencies Warning
