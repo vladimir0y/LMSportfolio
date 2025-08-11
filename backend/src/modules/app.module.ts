@@ -4,6 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { HealthController } from '../routes/health.controller';
 import { CourseModule } from './course/course.module';
 import { ScormModule } from './scorm/scorm.module';
+import { AuthModule } from './auth/auth.module';
+import { CurriculumModule } from './curriculum/curriculum.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { ScormModule } from './scorm/scorm.module';
       : []),
     CourseModule,
     ScormModule,
+    AuthModule,
+    CurriculumModule,
   ],
   controllers: [HealthController],
 })
