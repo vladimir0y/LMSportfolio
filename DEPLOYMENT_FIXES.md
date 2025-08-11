@@ -14,7 +14,7 @@
 
 ### 3. Node.js Version Warning
 - **Problem**: Vercel warning about automatic Node.js version upgrades
-- **Solution**: Changed from `"node": ">=18.17"` to `"node": "18.17.0"` for exact version control
+- **Solution**: Changed from `"node": ">=18.17"` to `"node": "22.0.0"` for exact version control
 - **Files Modified**: `frontend/package.json`
 
 ### 4. SWC Dependencies Warning
@@ -36,7 +36,7 @@
 The project uses Vercel for deployment with the following configuration:
 
 - **Framework**: Next.js
-- **Node.js Version**: 18.17.0 (exact version)
+- **Node.js Version**: 22.0.0 (exact version)
 - **Build Command**: `cd frontend && npm run build`
 - **Install Command**: `cd frontend && npm install`
 - **Output Directory**: `frontend/.next`
@@ -60,6 +60,6 @@ The project uses Vercel for deployment with the following configuration:
 ## Notes
 
 - All icon imports have been verified to be used in their respective components
-- The Node.js version is now pinned to exact version 18.17.0
+- The Node.js version is now pinned to exact version 22.0.0
 - SWC dependencies should be automatically patched during the build process
 - Vercel configuration has been modernized for better compatibility

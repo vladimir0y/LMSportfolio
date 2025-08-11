@@ -67,7 +67,7 @@ A fully functional Learning Management System (LMS) with comprehensive admin cap
 
 ## 📋 Prerequisites
 
-- **Node.js** 18.17+ 
+- **Node.js** 22.0.0+ 
 - **PostgreSQL** 12+
 - **npm** or **yarn** package manager
 

@@ -3,6 +3,10 @@
 # Deployment script for LMS Portfolio
 echo "🚀 Starting deployment process..."
 
+# Check Node.js version
+echo "📋 Checking Node.js version..."
+node --version
+
 # Navigate to frontend directory
 cd frontend
 
