@@ -5,13 +5,8 @@ import { motion } from 'framer-motion';
 import { 
   CogIcon,
   ShieldCheckIcon,
-  UserGroupIcon,
-  GlobeAltIcon,
   BellIcon,
-  KeyIcon,
-  DatabaseIcon,
   CloudIcon,
-  DocumentTextIcon,
   PhotoIcon
 } from '@heroicons/react/24/outline';
 

@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": ">=18.17"
+    "node": "18.17.x"
   },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "next telemetry disable"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.1",
