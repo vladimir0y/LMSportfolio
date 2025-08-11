@@ -36,7 +36,7 @@
 The project uses Vercel for deployment with the following configuration:
 
 - **Framework**: Next.js
-- **Node.js Version**: 22.0.0 (exact version)
+- **Node.js Version**: 22.18.0 (minimum version)
 - **Build Command**: `cd frontend && npm run build`
 - **Install Command**: `cd frontend && npm install`
 - **Output Directory**: `frontend/.next`
@@ -60,6 +60,6 @@ The project uses Vercel for deployment with the following configuration:
 ## Notes
 
 - All icon imports have been verified to be used in their respective components
-- The Node.js version is now pinned to exact version 22.0.0
+- The Node.js version is now set to minimum version 22.18.0
 - SWC dependencies should be automatically patched during the build process
 - Vercel configuration has been modernized for better compatibility
