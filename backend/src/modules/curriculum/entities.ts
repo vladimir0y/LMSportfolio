@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, ManyToMany, JoinTable } from 'typeorm';
+import { UserEntity } from '../user/user.entity';
 
 @Entity('categories')
 export class CategoryEntity {
@@ -19,6 +20,13 @@ export class CourseEntity {
   @CreateDateColumn() createdAt!: Date;
   @UpdateDateColumn() updatedAt!: Date;
   @OneToMany(() => ModuleEntity, (m) => m.course) modules!: ModuleEntity[];
+  @ManyToMany(() => UserEntity, (user) => user.enrolledCourses)
+  @JoinTable({
+    name: 'course_enrollments',
+    joinColumn: { name: 'courseId', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'userId', referencedColumnName: 'id' },
+  })
+  enrolledUsers!: UserEntity[];
 }
 
 @Entity('modules')

@@ -1,70 +1,133 @@
-import { Controller, Get, Param, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, Post, Get, Param, Delete, UseInterceptors, UploadedFile, BadRequestException, UseGuards } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import { extname, join } from 'node:path';
-import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { extname, join } from 'path';
+import { ScormService } from './scorm.service';
+import { readFile, writeFile, mkdir } from 'fs/promises';
+import { createReadStream, createWriteStream } from 'fs';
+import { pipeline } from 'stream/promises';
 import AdmZip from 'adm-zip';
 import { XMLParser } from 'fast-xml-parser';
 
-const UPLOAD_DIR = 'uploads/scorm';
-
-function ensureUploadDir() {
-  if (!existsSync(UPLOAD_DIR)) {
-    mkdirSync(UPLOAD_DIR, { recursive: true });
-  }
-}
-
 @Controller('api/scorm')
 export class ScormController {
+  constructor(private readonly scormService: ScormService) {}
+
   @Post('upload')
   @UseInterceptors(
     FileInterceptor('file', {
       storage: diskStorage({
-        destination: (_req, _file, cb) => {
-          ensureUploadDir();
-          cb(null, UPLOAD_DIR);
-        },
-        filename: (_req, file, cb) => {
-          const unique = Date.now() + '-' + Math.round(Math.random() * 1e9);
-          cb(null, unique + extname(file.originalname));
+        destination: './uploads/temp',
+        filename: (req, file, cb) => {
+          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+          cb(null, file.fieldname + '-' + uniqueSuffix + extname(file.originalname));
         },
       }),
+      fileFilter: (req, file, cb) => {
+        if (file.mimetype === 'application/zip' || file.originalname.endsWith('.zip')) {
+          cb(null, true);
+        } else {
+          cb(new BadRequestException('Only ZIP files are allowed'), false);
+        }
+      },
+      limits: {
+        fileSize: 100 * 1024 * 1024, // 100MB
+      },
     }),
   )
-  upload(@UploadedFile() file?: Express.Multer.File) {
-    if (!file) return { ok: false };
-    // Unzip to a versioned folder under uploads/scorm/<basename>/
-    const baseName = (file.originalname || 'package').replace(/\.zip$/i, '');
-    const targetDir = join(UPLOAD_DIR, baseName);
-    ensureUploadDir();
-    const zip = new AdmZip(file.path);
-    zip.extractAllTo(targetDir, true);
-
-    // Parse imsmanifest.xml for launchable resource
-    const manifestEntry = zip.getEntry('imsmanifest.xml') || zip.getEntry('imsmanifest.xml'.toUpperCase());
-    let launch: string | undefined;
-    if (manifestEntry) {
-      const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: '' });
-      const xml = manifestEntry.getData().toString('utf8');
-      const doc = parser.parse(xml);
-      const resources = doc?.manifest?.resources?.resource;
-      const res = Array.isArray(resources) ? resources[0] : resources;
-      launch = res?.href || 'index.html';
-      // Save a tiny descriptor for the frontend
-      writeFileSync(join(targetDir, '.openlms.json'), JSON.stringify({ launch }, null, 2));
+  async uploadScorm(@UploadedFile() file: Express.Multer.File) {
+    if (!file) {
+      throw new BadRequestException('No file uploaded');
     }
 
-    return {
-      ok: true,
-      file: { filename: file.filename, path: file.path },
-      launchUrl: `/public/scorm/${baseName}/${launch || 'index.html'}`,
-    };
+    try {
+      const zip = new AdmZip(file.path);
+      const zipEntries = zip.getEntries();
+      
+      // Find imsmanifest.xml
+      const manifestEntry = zipEntries.find(entry => entry.entryName === 'imsmanifest.xml');
+      if (!manifestEntry) {
+        throw new BadRequestException('No imsmanifest.xml found in ZIP');
+      }
+
+      // Parse manifest
+      const manifestContent = manifestEntry.getData().toString('utf8');
+      const parser = new XMLParser({ ignoreAttributes: false });
+      const manifest = parser.parse(manifestContent);
+
+      // Extract launch file
+      let launchFile = 'index.html'; // Default
+      try {
+        const organizations = manifest.manifest?.organizations?.organization;
+        if (organizations) {
+          const org = Array.isArray(organizations) ? organizations[0] : organizations;
+          const items = org.item;
+          if (items) {
+            const firstItem = Array.isArray(items) ? items[0] : items;
+            const resourceId = firstItem['@_identifierref'];
+            const resources = manifest.manifest?.resources?.resource;
+            if (resources) {
+              const resource = Array.isArray(resources) 
+                ? resources.find(r => r['@_identifier'] === resourceId)
+                : resources;
+              if (resource) {
+                launchFile = resource['@_href'] || 'index.html';
+              }
+            }
+          }
+        }
+      } catch (error) {
+        console.warn('Could not parse launch file from manifest, using default');
+      }
+
+      // Create package directory
+      const packageName = file.originalname.replace('.zip', '');
+      const packageDir = join(process.cwd(), 'uploads', 'scorm', packageName);
+      await mkdir(packageDir, { recursive: true });
+
+      // Extract files
+      zip.extractAllTo(packageDir, true);
+
+      // Write metadata
+      const metadata = {
+        originalName: file.originalname,
+        uploadedAt: new Date().toISOString(),
+        launch: launchFile,
+        manifest: manifest
+      };
+      
+      await writeFile(
+        join(packageDir, '.openlms.json'),
+        JSON.stringify(metadata, null, 2)
+      );
+
+      return {
+        success: true,
+        packageName,
+        launchUrl: `/public/scorm/${packageName}/${launchFile}`,
+        message: 'SCORM package uploaded and extracted successfully'
+      };
+    } catch (error) {
+      console.error('Error processing SCORM package:', error);
+      throw new BadRequestException('Failed to process SCORM package: ' + error.message);
+    }
+  }
+
+  @Get('packages')
+  async listPackages() {
+    return this.scormService.listPackages();
+  }
+
+  @Delete('packages/:id')
+  async deletePackage(@Param('id') id: string) {
+    const success = await this.scormService.deletePackage(id);
+    return { success };
   }
 
   @Get('launch/:zip')
-  launch(@Param('zip') zip: string) {
-    // Frontend can iframe this public URL
-    return { url: `/public/scorm/${zip.replace(/\.zip$/i, '')}/index.html` };
+  async launchScorm(@Param('zip') zip: string) {
+    // This endpoint can be used for additional SCORM launch logic
+    return { launchUrl: `/public/scorm/${zip}/index.html` };
   }
 }
 
