@@ -67,7 +67,7 @@ export default function ScormPage() {
     title: '',
     description: '',
     courseId: '',
-    status: 'active' as const,
+    status: 'active' as 'active' | 'inactive' | 'processing',
     metadata: {
       duration: '',
       typicalLearningTime: '',
