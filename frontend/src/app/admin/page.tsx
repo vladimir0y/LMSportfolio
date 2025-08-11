@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { 
   UsersIcon, 
   BookOpenIcon, 
@@ -10,7 +11,10 @@ import {
   CheckCircleIcon,
   ExclamationTriangleIcon,
   ArrowUpIcon,
-  ArrowDownIcon
+  ArrowDownIcon,
+  QuestionMarkCircleIcon,
+  DocumentTextIcon,
+  CogIcon
 } from '@heroicons/react/24/outline';
 
 interface DashboardStats {
@@ -280,41 +284,95 @@ export default function AdminDashboard() {
       >
         <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">Quick Actions</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="flex flex-col items-center p-4 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl border border-blue-200 dark:border-blue-800 hover:shadow-md transition-all duration-200"
-          >
-            <BookOpenIcon className="w-8 h-8 text-blue-600 dark:text-blue-400 mb-2" />
-            <span className="text-sm font-medium text-blue-900 dark:text-blue-100">Create Course</span>
-          </motion.button>
+          <Link href="/admin/courses">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="flex flex-col items-center p-4 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl border border-blue-200 dark:border-blue-800 hover:shadow-md transition-all duration-200 cursor-pointer"
+            >
+              <BookOpenIcon className="w-8 h-8 text-blue-600 dark:text-blue-400 mb-2" />
+              <span className="text-sm font-medium text-blue-900 dark:text-blue-100">Manage Courses</span>
+            </motion.div>
+          </Link>
           
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="flex flex-col items-center p-4 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl border border-green-200 dark:border-green-800 hover:shadow-md transition-all duration-200"
-          >
-            <AcademicCapIcon className="w-8 h-8 text-green-600 dark:text-green-400 mb-2" />
-            <span className="text-sm font-medium text-green-900 dark:text-green-100">Add Module</span>
-          </motion.button>
+          <Link href="/admin/quizzes">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="flex flex-col items-center p-4 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl border border-green-200 dark:border-green-800 hover:shadow-md transition-all duration-200 cursor-pointer"
+            >
+              <QuestionMarkCircleIcon className="w-8 h-8 text-green-600 dark:text-green-400 mb-2" />
+              <span className="text-sm font-medium text-green-900 dark:text-green-100">Manage Quizzes</span>
+            </motion.div>
+          </Link>
           
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="flex flex-col items-center p-4 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl border border-purple-200 dark:border-purple-800 hover:shadow-md transition-all duration-200"
-          >
-            <CheckCircleIcon className="w-8 h-8 text-purple-600 dark:text-purple-400 mb-2" />
-            <span className="text-sm font-medium text-purple-900 dark:text-purple-100">Create Activity</span>
-          </motion.button>
+          <Link href="/admin/scorm">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="flex flex-col items-center p-4 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl border border-purple-200 dark:border-purple-800 hover:shadow-md transition-all duration-200 cursor-pointer"
+            >
+              <DocumentTextIcon className="w-8 h-8 text-purple-600 dark:text-purple-400 mb-2" />
+              <span className="text-sm font-medium text-purple-900 dark:text-purple-100">SCORM Packages</span>
+            </motion.div>
+          </Link>
           
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="flex flex-col items-center p-4 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 rounded-xl border border-orange-200 dark:border-orange-800 hover:shadow-md transition-all duration-200"
-          >
-            <ChartBarIcon className="w-8 h-8 text-orange-600 dark:text-orange-400 mb-2" />
-            <span className="text-sm font-medium text-orange-900 dark:text-orange-100">View Analytics</span>
-          </motion.button>
+          <Link href="/admin/users">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="flex flex-col items-center p-4 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 rounded-xl border border-orange-200 dark:border-orange-800 hover:shadow-md transition-all duration-200 cursor-pointer"
+            >
+              <UsersIcon className="w-8 h-8 text-orange-600 dark:text-orange-400 mb-2" />
+              <span className="text-sm font-medium text-orange-900 dark:text-orange-100">User Management</span>
+            </motion.div>
+          </Link>
+        </div>
+        
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <Link href="/admin/analytics">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="flex flex-col items-center p-4 bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-indigo-900/20 dark:to-blue-900/20 rounded-xl border border-indigo-200 dark:border-indigo-800 hover:shadow-md transition-all duration-200 cursor-pointer"
+            >
+              <ChartBarIcon className="w-8 h-8 text-indigo-600 dark:text-indigo-400 mb-2" />
+              <span className="text-sm font-medium text-indigo-900 dark:text-indigo-100">Analytics</span>
+            </motion.div>
+          </Link>
+          
+          <Link href="/admin/settings">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="flex flex-col items-center p-4 bg-gradient-to-br from-gray-50 to-slate-50 dark:from-gray-900/20 dark:to-slate-900/20 rounded-xl border border-gray-200 dark:border-gray-800 hover:shadow-md transition-all duration-200 cursor-pointer"
+            >
+              <CogIcon className="w-8 h-8 text-gray-600 dark:text-gray-400 mb-2" />
+              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">Settings</span>
+            </motion.div>
+          </Link>
+          
+          <Link href="/admin/modules">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="flex flex-col items-center p-4 bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-900/20 dark:to-cyan-900/20 rounded-xl border border-teal-200 dark:border-teal-800 hover:shadow-md transition-all duration-200 cursor-pointer"
+            >
+              <AcademicCapIcon className="w-8 h-8 text-teal-600 dark:text-teal-400 mb-2" />
+              <span className="text-sm font-medium text-teal-900 dark:text-teal-100">Manage Modules</span>
+            </motion.div>
+          </Link>
+          
+          <Link href="/admin/activities">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="flex flex-col items-center p-4 bg-gradient-to-br from-rose-50 to-pink-50 dark:from-rose-900/20 dark:to-pink-900/20 rounded-xl border border-rose-200 dark:border-rose-800 hover:shadow-md transition-all duration-200 cursor-pointer"
+            >
+              <CheckCircleIcon className="w-8 h-8 text-rose-600 dark:text-rose-400 mb-2" />
+              <span className="text-sm font-medium text-rose-900 dark:text-rose-100">Manage Activities</span>
+            </motion.div>
+          </Link>
         </div>
       </motion.div>
     </div>
