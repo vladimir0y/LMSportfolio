@@ -69,12 +69,12 @@ export default function ScormPage() {
     courseId: '',
     status: 'active' as 'active' | 'inactive' | 'processing',
     metadata: {
-      duration: '' as string | undefined,
-      typicalLearningTime: '' as string | undefined,
-      interactivityType: '' as string | undefined,
-      difficulty: '' as string | undefined,
-      language: '' as string | undefined,
-      tags: [] as string[] | undefined
+      duration: '',
+      typicalLearningTime: '',
+      interactivityType: '',
+      difficulty: '',
+      language: '',
+      tags: [] as string[]
     }
   });
 
