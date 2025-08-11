@@ -6,6 +6,8 @@ import { CourseModule } from './course/course.module';
 import { ScormModule } from './scorm/scorm.module';
 import { AuthModule } from './auth/auth.module';
 import { CurriculumModule } from './curriculum/curriculum.module';
+import { UserModule } from './user/user.module';
+import { QuizModule } from './quiz/quiz.module';
 
 @Module({
   imports: [
@@ -24,6 +26,8 @@ import { CurriculumModule } from './curriculum/curriculum.module';
     ScormModule,
     AuthModule,
     CurriculumModule,
+    UserModule,
+    QuizModule,
   ],
   controllers: [HealthController],
 })
