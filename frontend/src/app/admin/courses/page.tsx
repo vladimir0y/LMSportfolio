@@ -7,9 +7,15 @@ export default function AdminCourses() {
   const [courses, setCourses] = useState<Course[]>([]);
 
   useEffect(() => {
-    fetch(process.env.NEXT_PUBLIC_API_URL + '/api/courses')
-      .then((r) => r.json())
-      .then(setCourses)
+    const base = typeof window !== 'undefined' ? '' : process.env.NEXT_PUBLIC_API_URL || '';
+    // If no backend configured, keep empty list gracefully
+    if (!base && typeof window !== 'undefined') {
+      setCourses([]);
+      return;
+    }
+    fetch(`${base}/api/courses`)
+      .then((r) => (r.ok ? r.json() : []))
+      .then((data) => setCourses(Array.isArray(data) ? data : []))
       .catch(() => setCourses([]));
   }, []);
 
