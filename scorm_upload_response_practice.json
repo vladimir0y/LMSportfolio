@@ -1,8 +1,0 @@
-{
-  "success": true,
-  "packageName": "Practice1",
-  "launchUrl": "/public/scorm/Practice1/analytics-frame.html",
-  "launchFile": "analytics-frame.html",
-  "extractPath": "uploads/scorm/Practice1",
-  "message": "SCORM package uploaded and extracted successfully"
-}

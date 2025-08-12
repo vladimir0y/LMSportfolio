@@ -1,8 +1,0 @@
-{
-  "success": true,
-  "packageName": "Content",
-  "launchUrl": "/public/scorm/Content/analytics-frame.html",
-  "launchFile": "analytics-frame.html",
-  "extractPath": "uploads/scorm/Content",
-  "message": "SCORM package uploaded and extracted successfully"
-}
