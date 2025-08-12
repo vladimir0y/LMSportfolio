@@ -7,7 +7,6 @@ import { ScormModule } from './scorm/scorm.module';
 import { AuthModule } from './auth/auth.module';
 import { CurriculumModule } from './curriculum/curriculum.module';
 import { UserModule } from './user/user.module';
-import { QuizModule } from './quiz/quiz.module';
 
 @Module({
   imports: [
@@ -27,7 +26,6 @@ import { QuizModule } from './quiz/quiz.module';
     AuthModule,
     CurriculumModule,
     UserModule,
-    QuizModule,
   ],
   controllers: [HealthController],
 })

@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import { CourseModuleEntity } from './module.entity';
 
 @Entity('courses')
 export class CourseEntity {
@@ -19,6 +20,10 @@ export class CourseEntity {
 
   @UpdateDateColumn()
   updatedAt!: Date;
+
+  // Relationship to course modules
+  @OneToMany(() => CourseModuleEntity, module => module.course)
+  modules!: CourseModuleEntity[];
 }
 
 

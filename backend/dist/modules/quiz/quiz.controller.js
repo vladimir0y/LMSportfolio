@@ -70,14 +70,12 @@ __decorate([
     __metadata("design:type", String)
 ], CreateQuestionDto.prototype, "type", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], CreateQuestionDto.prototype, "options", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], CreateQuestionDto.prototype, "correctAnswer", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),

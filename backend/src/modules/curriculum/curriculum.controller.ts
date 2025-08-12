@@ -1,12 +1,13 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { IsBoolean, IsOptional, IsString, MaxLength } from 'class-validator';
+import { IsBoolean, IsEnum, IsOptional, IsString, MaxLength } from 'class-validator';
 import { CurriculumService } from './curriculum.service';
+import type { ActivityType } from './entities';
 
 class CategoryDto { @IsString() @MaxLength(120) name!: string; @IsString() @IsOptional() description?: string }
 class CourseDto { @IsString() @MaxLength(255) title!: string; @IsString() @IsOptional() description?: string; @IsBoolean() @IsOptional() isPublished?: boolean; }
 class ModuleDto { @IsString() @MaxLength(255) title!: string }
 class TopicDto { @IsString() @MaxLength(255) title!: string }
-class ActivityDto { @IsString() @MaxLength(255) title!: string; @IsString() type!: string; }
+class ActivityDto { @IsString() @MaxLength(255) title!: string; @IsEnum(["scorm","quiz","video","pdf","survey","forum","html5"]) type!: ActivityType; }
 
 @Controller('api/curriculum')
 export class CurriculumController {
@@ -32,5 +33,4 @@ export class CurriculumController {
   @Get('topics/:topicId/activities') listActivities(@Param('topicId') topicId: string) { return this.svc.listActivities(topicId); }
   @Post('topics/:topicId/activities') createActivity(@Param('topicId') topicId: string, @Body() dto: ActivityDto) { return this.svc.createActivity(topicId, dto); }
 }
-
 

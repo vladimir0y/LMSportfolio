@@ -1,0 +1,64 @@
+[
+  {
+    "id": "62183a3b-ec9e-c91e-0273-7ac2dac31de3",
+    "title": "PowerPoint software simulator",
+    "description": "Interactive simulator covering PowerPoint fundamentals with guided practice.",
+    "isPublished": true,
+    "category": "Software Training",
+    "visibility": "public",
+    "createdAt": "2025-08-12T18:55:05.313Z",
+    "updatedAt": "2025-08-12T18:55:05.313Z",
+    "metadata": {
+      "type": "simulator",
+      "subject": "PowerPoint",
+      "level": "beginner-intermediate",
+      "estimatedDuration": "2-3 hours",
+      "features": [
+        "Interactive practice",
+        "Guided tutorials",
+        "Real-time feedback",
+        "Progress tracking"
+      ]
+    },
+    "modules": [
+      {
+        "id": "module-1",
+        "title": "Module 1: Introduction",
+        "scormId": "Intro",
+        "launchUrl": "/public/scorm/Intro/index_lms.html",
+        "order": 1,
+        "isRequired": true,
+        "enforceSequence": true,
+        "prerequisites": []
+      },
+      {
+        "id": "module-2",
+        "title": "Module 2: Content",
+        "scormId": "Content",
+        "launchUrl": "/public/scorm/Content/analytics-frame.html",
+        "order": 2,
+        "isRequired": true,
+        "enforceSequence": true,
+        "prerequisites": [
+          "module-1"
+        ]
+      },
+      {
+        "id": "module-3",
+        "title": "Module 3: Practice 1",
+        "scormId": "Practice1",
+        "launchUrl": "/public/scorm/Practice1/analytics-frame.html",
+        "order": 3,
+        "isRequired": true,
+        "enforceSequence": true,
+        "prerequisites": [
+          "module-2"
+        ]
+      }
+    ],
+    "catalog": {
+      "listed": true,
+      "allowSelfEnrollment": true
+    }
+  }
+]

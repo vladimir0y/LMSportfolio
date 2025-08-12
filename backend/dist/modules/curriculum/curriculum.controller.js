@@ -67,7 +67,7 @@ __decorate([
     __metadata("design:type", String)
 ], ActivityDto.prototype, "title", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsEnum)(["scorm", "quiz", "video", "pdf", "survey", "forum", "html5"]),
     __metadata("design:type", String)
 ], ActivityDto.prototype, "type", void 0);
 let CurriculumController = class CurriculumController {

@@ -34,13 +34,13 @@ export class UserService {
     if (data.passwordHash) {
       data.passwordHash = await bcrypt.hash(data.passwordHash, 10);
     }
-    await this.users.update(id, data);
+    await this.users.update(id, data as any);
     return this.findById(id);
   }
 
   async deleteUser(id: string): Promise<boolean> {
     const result = await this.users.delete(id);
-    return result.affected > 0;
+    return (result.affected ?? 0) > 0;
   }
 
   async updateLastLogin(id: string): Promise<void> {

@@ -44,13 +44,11 @@ class CreateQuestionDto {
   @IsEnum(QuestionType)
   type!: QuestionType;
 
-  @IsString()
   @IsOptional()
-  options?: string;
+  options?: Record<string, unknown>;
 
-  @IsString()
   @IsOptional()
-  correctAnswer?: string;
+  correctAnswer?: Record<string, unknown>;
 
   @IsNumber()
   @IsOptional()

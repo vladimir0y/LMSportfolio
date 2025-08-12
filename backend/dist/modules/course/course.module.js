@@ -10,16 +10,19 @@ exports.CourseModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const course_entity_1 = require("./course.entity");
+const module_entity_1 = require("./module.entity");
 const course_service_1 = require("./course.service");
+const module_service_1 = require("./module.service");
 const course_controller_1 = require("./course.controller");
 let CourseModule = class CourseModule {
 };
 exports.CourseModule = CourseModule;
 exports.CourseModule = CourseModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([course_entity_1.CourseEntity])],
-        providers: [course_service_1.CourseService],
+        imports: [typeorm_1.TypeOrmModule.forFeature([course_entity_1.CourseEntity, module_entity_1.CourseModuleEntity])],
+        providers: [course_service_1.CourseService, module_service_1.CourseModuleService],
         controllers: [course_controller_1.CourseController],
+        exports: [course_service_1.CourseService, module_service_1.CourseModuleService],
     })
 ], CourseModule);
 //# sourceMappingURL=course.module.js.map

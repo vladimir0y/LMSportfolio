@@ -84,7 +84,8 @@ let ScormController = class ScormController {
         }
         catch (error) {
             console.error('Error processing SCORM package:', error);
-            throw new common_1.BadRequestException('Failed to process SCORM package: ' + error.message);
+            const message = error instanceof Error ? error.message : String(error);
+            throw new common_1.BadRequestException('Failed to process SCORM package: ' + message);
         }
     }
     async listPackages() {

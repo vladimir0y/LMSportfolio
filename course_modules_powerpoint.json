@@ -1,0 +1,42 @@
+{
+  "courseId": "62183a3b-ec9e-c91e-0273-7ac2dac31de3",
+  "title": "PowerPoint software simulator",
+  "published": true,
+  "visibility": "public",
+  "modules": [
+    {
+      "id": "module-1",
+      "title": "Module 1: Introduction",
+      "scormId": "Intro",
+      "launchUrl": "/public/scorm/Intro/index_lms.html",
+      "order": 1,
+      "isRequired": true,
+      "enforceSequence": true,
+      "prerequisites": []
+    },
+    {
+      "id": "module-2",
+      "title": "Module 2: Content",
+      "scormId": "Content",
+      "launchUrl": "/public/scorm/Content/analytics-frame.html",
+      "order": 2,
+      "isRequired": true,
+      "enforceSequence": true,
+      "prerequisites": [
+        "module-1"
+      ]
+    },
+    {
+      "id": "module-3",
+      "title": "Module 3: Practice 1",
+      "scormId": "Practice1",
+      "launchUrl": "/public/scorm/Practice1/analytics-frame.html",
+      "order": 3,
+      "isRequired": true,
+      "enforceSequence": true,
+      "prerequisites": [
+        "module-2"
+      ]
+    }
+  ]
+}

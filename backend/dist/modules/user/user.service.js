@@ -45,8 +45,9 @@ let UserService = class UserService {
         return this.findById(id);
     }
     async deleteUser(id) {
+        var _a;
         const result = await this.users.delete(id);
-        return result.affected > 0;
+        return ((_a = result.affected) !== null && _a !== void 0 ? _a : 0) > 0;
     }
     async updateLastLogin(id) {
         await this.users.update(id, { lastLoginAt: new Date() });

@@ -16,7 +16,6 @@ const scorm_module_1 = require("./scorm/scorm.module");
 const auth_module_1 = require("./auth/auth.module");
 const curriculum_module_1 = require("./curriculum/curriculum.module");
 const user_module_1 = require("./user/user.module");
-const quiz_module_1 = require("./quiz/quiz.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -39,7 +38,6 @@ exports.AppModule = AppModule = __decorate([
             auth_module_1.AuthModule,
             curriculum_module_1.CurriculumModule,
             user_module_1.UserModule,
-            quiz_module_1.QuizModule,
         ],
         controllers: [health_controller_1.HealthController],
     })
