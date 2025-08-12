@@ -1,6 +1,6 @@
 # OpenLMS - Modern Learning Management System
 
-A fully functional Learning Management System (LMS) with comprehensive admin capabilities, modern Apple-inspired design, and full SCORM support.
+A fully functional Learning Management System (LMS) with comprehensive admin capabilities, modern Apple-inspired design, and full SCORM suppor.
 
 ## 🚀 Features
 
