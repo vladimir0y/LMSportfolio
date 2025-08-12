@@ -1,0 +1,8 @@
+{
+  "success": true,
+  "packageName": "Intro",
+  "launchUrl": "/public/scorm/Intro/index_lms.html",
+  "launchFile": "index_lms.html",
+  "extractPath": "uploads/scorm/Intro",
+  "message": "SCORM package uploaded and extracted successfully"
+}
